@@ -1,6 +1,5 @@
 /**
- * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos
- * de verificación.
+ * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos de verificación.
  */
 package parser;
 
