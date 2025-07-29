@@ -25,16 +25,13 @@ public class Evaluator extends ExpressionHandler{
     private Parser parser;
 
     /**
-     *
+     * Constructor de clase.
      * @param expression Expresión en notación infija.
-     * @since 1.0.0
      */
     public Evaluator(String expression) {
         tokenizer = new Tokenizer(expression);
         parser = new Parser(tokenizer.tokenize());
         posfixExpression = parser.infixToPostfix();
-        System.out.println("Posfija" +posfixExpression);
-        System.out.println("Tokens" +tokenizer.tokenize());
     }
 
     // Constructor vacio.
@@ -152,6 +149,12 @@ public class Evaluator extends ExpressionHandler{
         return ans;
     }
 
+    /**
+     * Metodo encargado de calcular el maximo de un conjunto de numeros.
+     *
+     * @param numbers Lista de numeros a evaluar.
+     * @return Retorna el numero mas grande de la lista.
+     */
     public double findMax(List<Double> numbers) {
         if (numbers == null || numbers.isEmpty()) {
             throw new IllegalArgumentException("La lista no puede estar vacía o ser nula.");
@@ -167,6 +170,12 @@ public class Evaluator extends ExpressionHandler{
         return max;
     }
 
+    /**
+     * Metodo encargado de calcular el minimo de un conjunto de numeros.
+     *
+     * @param numbers Lista de numeros a evaluar.
+     * @return Retorna el numero mas pequeño de la lista.
+     */
     public double findMin(List<Double> numbers) {
         if (numbers == null || numbers.isEmpty()) {
             throw new IllegalArgumentException("La lista no puede estar vacía o ser nula.");

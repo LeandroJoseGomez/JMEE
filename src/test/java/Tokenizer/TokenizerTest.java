@@ -26,7 +26,9 @@ public class TokenizerTest {
         Tokenizer instance = new Tokenizer("-7/-(-3+-3.33*4- -20/10)^2");
 
         List<String> expResult =
-                Arrays.asList("-7", "/", "-", "(", "-3", "-", "3.33", "*", "4", "+", "20", "/", "10", ")", "^", "2");
+                Arrays.asList("-7", "/", "-", "(", "-3", "+", "-3.33", "*", "4", "-", "-20", "/", "10", ")", "^", "2");
+
+        //System.out.println("Original: " +expResult);
 
         List<String> result = instance.tokenize();
 

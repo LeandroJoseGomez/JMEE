@@ -44,7 +44,6 @@ public class ExpressionHandler {
      * Verifica si es un token reconocido.
      * @param token token a reconocer.
      * @return TRUE en caso de que si exista y FALSE en caso de que no exista.
-     * @since 1.0.0
      */
     protected boolean isToken(String token){
         return precedence.containsKey(token);
@@ -54,7 +53,6 @@ public class ExpressionHandler {
      * Verifica si el token en cuestión es un número.
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un número y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected boolean isNumber(String token) {
         try {
@@ -69,7 +67,6 @@ public class ExpressionHandler {
      * Verifica si el token en cuestión es un operador aritmetico ordinario.
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un operador y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected boolean isOperator(String token) {
         return switch (token) {
@@ -92,7 +89,6 @@ public class ExpressionHandler {
      * Verifica si la función en cuestión está dentro de las reconosidas.
      * @param function Función de la expresión a evaluar.
      * @return TRUE en caso de que sea una función y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected static boolean isFunction(String function) {
         return switch (function) {

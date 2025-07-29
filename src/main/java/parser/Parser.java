@@ -4,9 +4,7 @@
  */
 package parser;
 
-import parser.ExpressionHandler;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
@@ -18,7 +16,6 @@ import java.util.Stack;
 public class Parser extends ExpressionHandler{
 
     private List<String> tokens;
-    private char unaryMinus;
 
     /**
      * Constructor de clase.
@@ -26,13 +23,11 @@ public class Parser extends ExpressionHandler{
      */
     public Parser(List<String> tokens){
         this.tokens = tokens;
-        System.out.println(tokens);
     }
 
     /**
      * Algoritmo Shunting Yard (Esta implementación obvia cualquier signo que no este en la precedencia).
      * @return Expresión matematica en notación posfija.
-     * @since 1.0.0
      */
     public List<String> infixToPostfix() {
         List<String> output = new ArrayList<>();

@@ -18,16 +18,15 @@ public class Tokenizer extends ExpressionHandler {
 
     private static String expression = "";
 
-    // Variable auxiliar para determinar cuando el signo '-' es de uso unario.
+    // Variable auxiliar para determinar cuando el signo '-' esta asociado a un numero.
     private char unaryMinus = ' ';
 
-    // Funciones con multiples argumentos <función, número de argumentos>.
+    // Contenedor para funciones con multiples argumentos <función, número de argumentos>.
     private static HashMap<String, Integer> functionArgCount = new HashMap<>();
 
     /**
      * Constructor de clase.
      * @param expression Expresión a evaluar.
-     * @since 1.0.0
      */
     public Tokenizer(String expression) {
         this.expression = expression;
@@ -44,7 +43,6 @@ public class Tokenizer extends ExpressionHandler {
     /**
      * Divide y tokeniza la expresión haciendo uso del algoritmo Sorting Buffer.
      * @return Lista que contiene la expresión original ya tokenizada.
-     * @since 1.0.0
      */
     public List<String> tokenize() {
 
@@ -91,53 +89,22 @@ public class Tokenizer extends ExpressionHandler {
                 tokens.add(buffer.toString());
                 i--;
 
-            } else if (currentChar == '-'){
-
-                 // Primer bloque de validación (El caracter siguiente es un numero).
-                 if (Character.isDigit(nextChar)){
-                    if (i > 0 && prevChar == currentChar){
-                        tokens.add("+");
-
-                    } else if (i > 0 && prevChar == '+'){
-                        tokens.remove(tokens.size()-1);
-                        tokens.add("-");
-
-                    } else if (!Character.isDigit(prevChar)){
-                        unaryMinus = '-';
-
-                    }
-
-                    // Segundo bloque de validación (regla de los signos II).
-                } else if ( !Character.isDigit(prevChar) && prevChar != '(' && prevChar != ')' || Character.isLetter(nextChar)){
-
-                    if (prevChar == currentChar){
-                        tokens.add("+");
-
-                    }else if (prevChar == '+'){
-                        tokens.remove(tokens.size()-1);
-                        tokens.add("-");
-
-                    }else if (nextChar == '+'){
-                        tokens.add("-");
-                        i++;
-
-                    }else if (nextChar == '-'){
-                        tokens.add("+");
-                        i++;
-
-                    } else{
-                        tokens.add("-");
-                    }
-
-                }
-
-                // Los tokens no comparados como por ejemplo los parentesis se agregan directamente.
+            // Verifica que exista un signo unitario asociado a un numero.
+            } else if(currentChar == '-'){
+                if (Character.isDigit(nextChar) && !Character.isDigit(prevChar)){
+                    unaryMinus = '-';
                 } else{
                     tokens.add(String.valueOf(currentChar));
                 }
+
+                // Los tokens no comparados como por ejemplo los parentesis se agregan directamente.
+            } else{
+                tokens.add(String.valueOf(currentChar));
+            }
+
         }
 
-        // Verifica las funciones con multiples argumentos.
+        // Verificar las funciones con multiples argumentos.
         countFunctionArguments(tokens);
         return tokens;
     }
@@ -164,7 +131,12 @@ public class Tokenizer extends ExpressionHandler {
         }
     }
 
-    // Retorna la cantidad de argumentos de una función.
+    /**
+     * Retorna la cantidad de argumentos de una función.
+     *
+     * @param key Funcion de la que se quiere saver su cantidad de parametros.
+     * @return Retorna un valor entero que indica la cantidad de argumentos.
+     */
     public static int getFunctionArgCount(String key){
         return functionArgCount.get(key);
     }
