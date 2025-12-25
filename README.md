@@ -6,19 +6,21 @@ computación <a href="https://es.wikipedia.org/wiki/Edsger_Dijkstra">Edsger Dijk
 de este algoritmo es convertir una expresión matemática en notación infija la forma habitual en la que escribimos y 
 comprendemos las operaciones matemáticas, como 3+3*4-10 a una notación
 posfija o notación polaca inversa por ejemplo, 3 3 4 * + 10 -. Esta conversión facilita la evaluación de la expresión
-para un computador.
+para un computador.   
+    
+&nbsp;
 
 Mi objetivo con este proyecto es aprender nuevos conceptos relacionados con la optimizasión y reutilización de código
 Java, asi como también la aplicación de algoritmos avanzados para el análisis de expresiones matemáticas y métodos 
-numéricos. Todo esto con el fin de reforzar y mejorar mis conocimientos sobre las materias de **Métodos numéricos, 
-Calculo, Algoritmos computacionales y Lógica computacional** anteriormente cursadas en la universidad.
-
+numéricos.
+<br/>
+<br/>
 
 ## Funcionamiento
 Haciendo uso de un algoritmo propio denominado **Sorting Buffer** se analiza y tokeniza la expresión matemática 
 permitiendo identificar cualquier número real y algunas funciones básicas (trigonométricas, logarítmicas, estadísticas, 
 etc). El algoritmo toma como entrada un String con la operación matemática para luego ir iterando carácter por carácter
-y determinar si se trata de un número o función apoyándose en un buffer temporal el cual ira ensamblando el número o 
+y determinar si se trata de un número o función, apoyándose en un buffer temporal el cual ira ensamblando el número o 
 función correspondiente.
 
 **Descripción básica:**
