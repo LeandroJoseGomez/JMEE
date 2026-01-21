@@ -4,14 +4,12 @@
  */
 package parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  *
  * @author Leandro Gómez.
- * @version 1.0.0
+ * @version 1.1.2
  */
 public class Parser extends ExpressionHandler{
 
@@ -30,13 +28,17 @@ public class Parser extends ExpressionHandler{
      * @return Expresión matematica en notación posfija.
      */
     public List<String> infixToPostfix() {
-        List<String> output = new ArrayList<>();
+        List<String> posfixExpression = new ArrayList<>();
         Stack<String> operators = new Stack<>();
 
         for (String token : tokens) {
             if (isNumber(token)) {// Si es un número se agrega a la salida.
-                output.add(token);
-            } else
+                posfixExpression.add(token);
+
+            } else if(Character.isLetter(token.charAt(0)) && variables.containsKey(token)) {
+                posfixExpression.add(String.valueOf(variables.get(token)));
+            }
+        else
             if (isToken(token)) {
                 /*
                  * Mientras que el token sea un operador con menor o igual precedencia que
@@ -46,7 +48,7 @@ public class Parser extends ExpressionHandler{
                 while (!operators.isEmpty() && precedence.containsKey(operators.peek())
                         && precedence.get(token) <= precedence.get(operators.peek())) {
 
-                    output.add(operators.pop());
+                    posfixExpression.add(operators.pop());
                 }
                 operators.push(token);// Añadir el operador luego de la comparación.
 
@@ -72,7 +74,7 @@ public class Parser extends ExpressionHandler{
             } else if (token.equals(")")) {
 
                 while (!operators.isEmpty() && !operators.peek().equals("(")) {
-                    output.add(operators.pop());
+                    posfixExpression.add(operators.pop());
                 }
                 operators.pop();// Se borra el paréntesis de apertura luego de comparar.
             }
@@ -84,10 +86,10 @@ public class Parser extends ExpressionHandler{
          * los operadores en ella se vacian en la lista de salida.
          */
         while (!operators.isEmpty()) {
-            output.add(operators.pop());
+            posfixExpression.add(operators.pop());
         }
 
         // Expresión en notación posfija.
-        return output;
+        return posfixExpression;
     }
 }

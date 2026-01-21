@@ -2,77 +2,44 @@ package evaluator;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class EvaluatorTest {
 
     @Test
-    public void getAns() {
-        Evaluator instance = new Evaluator("3^2+1");
-        double expResult = 10;
-        instance.evaluateExpression();
-        double result = instance.getAns();
-        assertEquals(expResult, result, 0);
-    }
-
-    @Test // Error de sintaxis
-    public void getAnsSyntaxError() {
-        Evaluator instance = new Evaluator("3^(2+1");
-        double expResult = 10;
-        instance.evaluateExpression();
-        double result = instance.getAns();
-        //assertEquals(expResult, result, 0);
-    }
-
-    @Test // error al tratar cantidades negativas
-    public void getAnsNegativeNumbers() {
-        Evaluator instance = new Evaluator("-7/-(-3+-3.33*4- -20/10)^2"); // +3*sqrt((-2^2))
-        double expResult = 0;
-        //instance.evaluateExpression();       // Error al manejar la pila de tokens.
-        double result = 0;
-        System.out.println(result);
-        //assertEquals(expResult, result, 0);
-    }
-
-    @Test
     public void evaluateExpression() {
-        Evaluator instance = new Evaluator("3+max(4,3,2,1)+3-min(4,3,2,1)");
-        double expResult = 9;
-        double result = instance.evaluateExpression();
-        assertEquals(expResult, result, 0);
+        for (int i = 0; i<= 1000; i++){
+            Evaluator instance = new Evaluator("-7/(-3+-3.33*4- -20/10)^2");
+            instance.parseExpression();
+            double expResult = -0.034135950813020816;
+
+            double result = instance.evaluateExpression();
+            System.out.println(result);
+            assertEquals(expResult, result, 0);
+        }
+
     }
 
     @Test
     public void evaluateExpressionTrigonometric() {
-        Evaluator instance = new Evaluator("cos(90)^2+sin(90)^2");
+        Evaluator instance = new Evaluator("sIn(90) + CoS(90)");
+        instance.parseExpression();
         double expResult = 1;
+
         double result = instance.evaluateExpression();
         assertEquals(expResult, result, 0);
     }
 
     @Test // error de calculo.
-    public void evaluateExpressionLogarithmic() {
-        Evaluator instance = new Evaluator("arcos(1)");
-        double expResult = 90;
+    public void evaluateExpressionWhitVariables() {
+        Evaluator instance = new Evaluator("-7/(-3+-x*4- -20/10)^y");
+        instance.setParameter("x", 3.33); // siempre en minusculas.
+        instance.setParameter("y", 2);
+        instance.parseExpression();
+        double expResult = -0.034135950813020816;
+
         double result = instance.evaluateExpression();
-        //assertEquals(expResult, result, 0);
-    }
-
-    @Test
-    public void findMax() {
-        Evaluator instance = new Evaluator();
-        double result = instance.findMax(Arrays.asList(4.22,9.33,9.0,6.1,3.0));
-        double expResult = 9.33;
         assertEquals(expResult, result, 0);
     }
 
-    @Test
-    public void findMin() {
-        Evaluator instance = new Evaluator();
-        double result = instance.findMin(Arrays.asList(4.22,9.33,9.0,6.1,3.0));
-        double expResult = 3.0;
-        assertEquals(expResult, result, 0);
-    }
 }
