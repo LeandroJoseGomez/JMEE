@@ -32,7 +32,7 @@ Ejemplo: `"3+5.5*sin(30)` se convierte en `[3, +, 5.5, *, sin, (, 30 , )]`
 
 Ilustración sencilla de como trabaja el algoritmo Sorting Buffer.
 ```java
-    // Buffer para números.
+    // Buffer para números
     if (Character.isDigit(currentChar)) {
         StringBuilder buffer = new StringBuilder();
         
