@@ -1,19 +1,22 @@
 /**
- * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos
- * de verificación.
+ *
  */
 package parser;
 
 import java.util.HashMap;
 
 /**
+ * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos de verificación.
  *
  * @author Leandro Gómez.
  * @version 1.0.0
+ * @since 0.9.0
  */
 public class ExpressionHandler {
 
-    protected static final HashMap<String, Integer> precedence = new HashMap<>();
+    protected static HashMap<String, Integer> precedence = new HashMap<>();
+    protected static HashMap<String, Double> variables = new HashMap<>();
+    protected static HashMap<String, CustomFunction> customFunctions = new HashMap<>();
 
     // Bloque estatico de inicialización para las precedencias.
     static {
@@ -30,22 +33,15 @@ public class ExpressionHandler {
         precedence.put("csc", 4);
         precedence.put("sec", 4);
         precedence.put("cot", 4);
-        precedence.put("arcsin", 4);
-        precedence.put("arccos", 4);
-        precedence.put("arctan", 4);
 
         precedence.put("log", 4);
         precedence.put("ln", 4);
-
-        precedence.put("min", 4);
-        precedence.put("max", 4);
     }
 
     /**
      * Verifica si es un token reconocido.
      * @param token token a reconocer.
      * @return TRUE en caso de que si exista y FALSE en caso de que no exista.
-     * @since 1.0.0
      */
     protected boolean isToken(String token){
         return precedence.containsKey(token);
@@ -55,7 +51,6 @@ public class ExpressionHandler {
      * Verifica si el token en cuestión es un número.
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un número y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected boolean isNumber(String token) {
         try {
@@ -70,9 +65,10 @@ public class ExpressionHandler {
      * Verifica si el token en cuestión es un operador aritmetico ordinario.
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un operador y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected boolean isOperator(String token) {
+        precedence.containsKey(token);
+
         return switch (token) {
             case "+" ->
                     true;
@@ -93,7 +89,6 @@ public class ExpressionHandler {
      * Verifica si la función en cuestión está dentro de las reconosidas.
      * @param function Función de la expresión a evaluar.
      * @return TRUE en caso de que sea una función y FALSE en caso de que no lo sea.
-     * @since 1.0.0
      */
     protected static boolean isFunction(String function) {
         return switch (function) {
@@ -107,18 +102,6 @@ public class ExpressionHandler {
                     true;
             case "tan" ->
                     true;
-            case "csc" ->
-                    true;
-            case "sec" ->
-                    true;
-            case "cot" ->
-                    true;
-            case "arcsin" ->
-                    true;
-            case "arccos" ->
-                    true;
-            case "arctan" ->
-                    true;
 
             // Logaritmicas.
             case "log" ->
@@ -126,11 +109,6 @@ public class ExpressionHandler {
             case "ln" ->
                     true;
 
-            // Multi argumentos.
-            case "max" ->
-                    true;
-            case "min" ->
-                    true;
             default ->
                     false;
         };

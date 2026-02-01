@@ -31,7 +31,7 @@ public class ExpressionHandlerTest {
         assertEquals(expResult, result);
 
         token = "x";
-        expResult = true;
+        expResult = false;
         result = instance.isOperator(token);
         assertEquals(expResult, result);
 

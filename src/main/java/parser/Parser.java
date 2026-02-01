@@ -1,47 +1,37 @@
-/**
- * Clase encargada de convertir la expresión en notación infija a notación posfija haciendo uso
- * del algoritmo Shunting Yard.
- */
+
 package parser;
 
-import parser.ExpressionHandler;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
+ * Clase encargada de convertir la expresión en notación infija a notación posfija haciendo uso
+ * del algoritmo Shunting Yard creado por el cientifico.
+ * @see <a>https://es.wikipedia.org/wiki/Algoritmo_shunting_yard</a>
  *
  * @author Leandro Gómez.
  * @version 1.0.0
+ * @since 0.9.0
  */
 public class Parser extends ExpressionHandler{
 
-    private List<String> tokens;
-    private char unaryMinus;
-
     /**
-     * Constructor de clase.
-     * @param tokens Lista que contiene los tokens que conforman la expresión matematica.
+     * Esta implementacion del algoritmo Shunting Yard obvia cualquier signo o funcion que no este en la precedencia.
+     * @param tokens Lista de tokes formateados proporcionada por el {@link tokenizer.Tokenizer}
+     * @return Lista de tokens en notacion posfija.
+     * @since 0.9.0
      */
-    public Parser(List<String> tokens){
-        this.tokens = tokens;
-        System.out.println(tokens);
-    }
-
-    /**
-     * Algoritmo Shunting Yard (Esta implementación obvia cualquier signo que no este en la precedencia).
-     * @return Expresión matematica en notación posfija.
-     * @since 1.0.0
-     */
-    public List<String> infixToPostfix() {
-        List<String> output = new ArrayList<>();
+    public List<String> infixToPostfix(List<String> tokens) {
+        List<String> posfixExpression = new ArrayList<>();
         Stack<String> operators = new Stack<>();
 
         for (String token : tokens) {
             if (isNumber(token)) {// Si es un número se agrega a la salida.
-                output.add(token);
-            } else
+                posfixExpression.add(token);
+
+            } else if(Character.isLetter(token.charAt(0)) && variables.containsKey(token)) {
+                posfixExpression.add(String.valueOf(variables.get(token)));
+            }
+        else
             if (isToken(token)) {
                 /*
                  * Mientras que el token sea un operador con menor o igual precedencia que
@@ -51,7 +41,7 @@ public class Parser extends ExpressionHandler{
                 while (!operators.isEmpty() && precedence.containsKey(operators.peek())
                         && precedence.get(token) <= precedence.get(operators.peek())) {
 
-                    output.add(operators.pop());
+                    posfixExpression.add(operators.pop());
                 }
                 operators.push(token);// Añadir el operador luego de la comparación.
 
@@ -77,7 +67,7 @@ public class Parser extends ExpressionHandler{
             } else if (token.equals(")")) {
 
                 while (!operators.isEmpty() && !operators.peek().equals("(")) {
-                    output.add(operators.pop());
+                    posfixExpression.add(operators.pop());
                 }
                 operators.pop();// Se borra el paréntesis de apertura luego de comparar.
             }
@@ -89,10 +79,10 @@ public class Parser extends ExpressionHandler{
          * los operadores en ella se vacian en la lista de salida.
          */
         while (!operators.isEmpty()) {
-            output.add(operators.pop());
+            posfixExpression.add(operators.pop());
         }
 
         // Expresión en notación posfija.
-        return output;
+        return posfixExpression;
     }
 }
