@@ -1,14 +1,16 @@
 /**
- * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos de verificación.
+ *
  */
 package parser;
 
 import java.util.HashMap;
 
 /**
+ * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos de verificación.
  *
  * @author Leandro Gómez.
- * @version 1.1.2
+ * @version 1.0.0
+ * @since 0.9.0
  */
 public class ExpressionHandler {
 

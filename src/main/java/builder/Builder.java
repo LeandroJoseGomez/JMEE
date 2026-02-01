@@ -1,13 +1,18 @@
-package Builder;
+package builder;
 
-import Tokenizer.Tokenizer;
+import tokenizer.Tokenizer;
 import evaluator.Evaluator;
 import parser.ExpressionHandler;
 import parser.Parser;
 
-import java.util.HashMap;
 import java.util.List;
 
+/**
+ *
+ * @author Leandro Gómez.
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class Builder extends ExpressionHandler {
 
     private String expression;

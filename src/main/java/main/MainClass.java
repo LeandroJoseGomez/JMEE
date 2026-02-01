@@ -1,11 +1,12 @@
 package main;
 
-import Builder.Builder;
+import builder.Builder;
 import parser.CustomFunction;
 
 public class MainClass {
     public static void main(String[] args) {
 
+        // Creacion de funciones personalizadas.
         CustomFunction customFunction = new CustomFunction("sum",2) {
             @Override
             public double function(double... arguments) {
@@ -14,20 +15,30 @@ public class MainClass {
         };
         customFunction.addFunction();
 
-        Builder builder = new Builder("sum(3,2)"); // Se escribe la expresion.  "3*x+2*y"
-        System.out.println("La expresion a evaluar es: " +builder.getExpression());
+        CustomFunction customFunction2 = new CustomFunction("min",2) {
+            @Override
+            public double function(double... arguments) {
+                return arguments[0] - arguments[1];
+            }
+        };
+        customFunction2.addFunction();
+
+        Builder builder = new Builder("sum(3,2) * min(x,y)"); // (3+2) * (10-5) => 25
 
         // Se setean los valores de las variables.
-        //builder.setParameter("x", 2);
-        //builder.setParameter("y", 3);
+        builder.setParameter("x", 10);
+        builder.setParameter("y", 5);
 
         builder.builExpression();// Se procesa.
-        System.out.println(builder.getTokens());
-        System.out.println(builder.getPosfixExpression());
 
         // Se evalua.
         double result = builder.evaluate();
-        System.out.println("El resultado fue ==> " +result);
+
+        // Se muestra.
+        System.out.println("Expresion a evaluar => " +builder.getExpression());
+        System.out.println("Tokens => " + builder.getTokens());
+        System.out.println("Tokens en notacion posfija => " + builder.getPosfixExpression());
+        System.out.println("El resultado fue => " +result);
 
     }
 }

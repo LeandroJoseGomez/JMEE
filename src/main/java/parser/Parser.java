@@ -1,21 +1,24 @@
-/**
- * Clase encargada de convertir la expresión en notación infija a notación posfija haciendo uso
- * del algoritmo Shunting Yard.
- */
+
 package parser;
 
 import java.util.*;
 
 /**
+ * Clase encargada de convertir la expresión en notación infija a notación posfija haciendo uso
+ * del algoritmo Shunting Yard creado por el cientifico.
+ * @see <a>https://es.wikipedia.org/wiki/Algoritmo_shunting_yard</a>
  *
  * @author Leandro Gómez.
- * @version 1.1.2
+ * @version 1.0.0
+ * @since 0.9.0
  */
 public class Parser extends ExpressionHandler{
 
     /**
-     * Algoritmo Shunting Yard (Esta implementación obvia cualquier signo que no este en la precedencia).
-     * @return Expresión matematica en notación posfija.
+     * Esta implementacion del algoritmo Shunting Yard obvia cualquier signo o funcion que no este en la precedencia.
+     * @param tokens Lista de tokes formateados proporcionada por el {@link tokenizer.Tokenizer}
+     * @return Lista de tokens en notacion posfija.
+     * @since 0.9.0
      */
     public List<String> infixToPostfix(List<String> tokens) {
         List<String> posfixExpression = new ArrayList<>();

@@ -1,22 +1,30 @@
-/**
- * Clase encargada del formateo y tokenización de la expresión original utilizando un algoritmo propio titulado Sorting Buffer.
- */
-package Tokenizer;
+
+package tokenizer;
 
 import parser.ExpressionHandler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
+ * Clase encargada del la tokenización de la expresión original, utilizando un enfoque basado buffers para identificar
+ * funciones y numeros reales.
  *
  * @author Leandro Gómez.
- * @version 1.1.2
+ * @version 1.0.0
+ * @since 0.9.0
  */
 public class Tokenizer extends ExpressionHandler {
 
     /**
-     * Divide y tokeniza la expresión haciendo uso del algoritmo Sorting Buffer.
-     * @return Lista que contiene la expresión original ya tokenizada.
+     * Convierte una cadena de texto en una lista de tokens individuales.
+     * Analiza caracteres de forma secuencial para distinguir entre operadores,
+     * paréntesis, identificadores y números (incluyendo lógica de signos unarios).
+     *
+     * @param input La expresión matemática en formato String (ej. "3+sin(x)").
+     * @return Una List de Strings con todos los tokes.
+     * @since 0.9.0
      */
     public static List<String> tokenize(String input) {
         if (input == null || input.isEmpty()) return new ArrayList<>();
@@ -49,7 +57,7 @@ public class Tokenizer extends ExpressionHandler {
                 tokens.add(sb.toString());
                 i--;
             }
-            // Manejo del signo menos (Operador vs Unario)
+            // Manejo del signo menos (Operador y Unario)
             else if (c == '-') {
                 // Es unario si: es el inicio, o sigue a un operador/paréntesis abierto
                 boolean isUnary = (i == 0);

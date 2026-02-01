@@ -1,9 +1,10 @@
 package evaluator;
 
 /**
- * Clase encargada de evaluar las funciones precargadas.
+ * Clase encargada de contener y evaluar las funciones precargadas.
  * @author Leandro Gómez
- * @version 1.1.2
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public class Functions {
 

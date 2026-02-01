@@ -2,8 +2,10 @@ package parser;
 
 /**
  * Representa una función personalizada definida por el usuario.
- * @author Leandro Gómez
- * @version 1.1.2
+ *
+ * @author Leandro Gómez.
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public abstract class CustomFunction extends ExpressionHandler{
 
