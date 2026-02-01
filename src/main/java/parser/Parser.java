@@ -13,21 +13,11 @@ import java.util.*;
  */
 public class Parser extends ExpressionHandler{
 
-    private List<String> tokens;
-
-    /**
-     * Constructor de clase.
-     * @param tokens Lista que contiene los tokens que conforman la expresión matematica.
-     */
-    public Parser(List<String> tokens){
-        this.tokens = tokens;
-    }
-
     /**
      * Algoritmo Shunting Yard (Esta implementación obvia cualquier signo que no este en la precedencia).
      * @return Expresión matematica en notación posfija.
      */
-    public List<String> infixToPostfix() {
+    public List<String> infixToPostfix(List<String> tokens) {
         List<String> posfixExpression = new ArrayList<>();
         Stack<String> operators = new Stack<>();
 

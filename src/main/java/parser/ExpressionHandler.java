@@ -12,8 +12,9 @@ import java.util.HashMap;
  */
 public class ExpressionHandler {
 
-    protected static final HashMap<String, Integer> precedence = new HashMap<>();
+    protected static HashMap<String, Integer> precedence = new HashMap<>();
     protected static HashMap<String, Double> variables = new HashMap<>();
+    protected static HashMap<String, CustomFunction> customFunctions = new HashMap<>();
 
     // Bloque estatico de inicialización para las precedencias.
     static {
@@ -64,6 +65,8 @@ public class ExpressionHandler {
      * @return TRUE en caso de que sea un operador y FALSE en caso de que no lo sea.
      */
     protected boolean isOperator(String token) {
+        precedence.containsKey(token);
+
         return switch (token) {
             case "+" ->
                     true;

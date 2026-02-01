@@ -14,43 +14,6 @@ import java.util.*;
  */
 public class Tokenizer extends ExpressionHandler {
 
-    private static String expression = "";
-
-    // Contenedor para funciones con multiples argumentos <función, argumentos>.
-    private static final HashMap<String, Integer> functionArgCount = new HashMap<>();
-
-    /*
-     * Guarda las funciones y sus multiples argumentos (Falta agregar una implementacion mas optimizada).
-     */
-    private void countFunctionArguments(List<String> tokens){
-
-        String function = "";
-        int argCount = 0; // Total de argumentos de cada funcion.
-
-        for(String token : tokens){
-            if (isFunction(token)) {
-                function = token;
-                argCount++;
-            }else if (token.equals(",")) {
-                argCount++;
-
-            }else if (token.equals(")")) {
-                functionArgCount.put(function, argCount);
-                argCount = 0;
-            }
-        }
-    }
-
-    /**
-     * Retorna la cantidad de argumentos de una función.
-     *
-     * @param key Funcion de la que se quiere saver su cantidad de parametros.
-     * @return Retorna un valor entero que indica la cantidad de argumentos.
-     */
-    public static int getFunctionArgCount(String key){
-        return functionArgCount.get(key);
-    }
-
     /**
      * Divide y tokeniza la expresión haciendo uso del algoritmo Sorting Buffer.
      * @return Lista que contiene la expresión original ya tokenizada.
@@ -58,7 +21,7 @@ public class Tokenizer extends ExpressionHandler {
     public static List<String> tokenize(String input) {
         if (input == null || input.isEmpty()) return new ArrayList<>();
 
-        // El formateo debe devolver la cadena limpia
+        // El formateo debe devolver la cadena limpia.
         String expr = input.replaceAll("\\s+", "").toLowerCase();
         List<String> tokens = new ArrayList<>();
         int n = expr.length();

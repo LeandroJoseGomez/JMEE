@@ -4,14 +4,11 @@
  */
 package evaluator;
 
+import parser.CustomFunction;
 import parser.ExpressionHandler;
 
 import java.util.List;
 import java.util.Stack;
-
-import parser.Parser;
-import Tokenizer.Tokenizer;
-
 
 /**
  *
@@ -20,36 +17,12 @@ import Tokenizer.Tokenizer;
  */
 public class Evaluator extends ExpressionHandler{
 
-    private List<String> posfixExpression;
-    private String expression;
-    private double ans = 0;
-
-    /**
-     * Constructor de clase.
-     * @param expression Expresión en notación infija.
-     */
-    public Evaluator(String expression) {
-        this.expression = expression;
-    }
-
-    public void parseExpression() {
-        List<String> tokens = Tokenizer.tokenize(expression);
-        Parser parser = new Parser(tokens);
-        this.posfixExpression = parser.infixToPostfix();
-        System.out.println(tokens.toString());
-        System.out.println(posfixExpression);
-    }
-
-    public void setParameter(String parameter, double value){
-        variables.put(parameter, value);
-    }
-
     /**
      * Metodo encargado de evaluar la expresión.
      * @return Retorna el resultado de la expresion evaluada en notación posfija.
      * @since 1.0.0
      */
-    public double evaluateExpression() {
+    public double evaluateExpression(List<String> posfixExpression) {
         if (posfixExpression == null) {
             throw new IllegalStateException("Se debe llamar al metodo parseExpression() antes de evaluar.");
         }
@@ -78,6 +51,19 @@ public class Evaluator extends ExpressionHandler{
 
                 double val = stack.pop();
                 stack.push(evaluateFunction(token, val));
+            } else
+                if (customFunctions.containsKey(token)) {
+                    CustomFunction func = customFunctions.get(token);
+                    int numArgs = func.getFunctionArgument();
+
+
+                    double[] args = new double[numArgs];
+                        for (int i = numArgs - 1; i >= 0; i--) {
+                            if (stack.isEmpty()) throw new IllegalArgumentException("Faltan argumentos para: " + token);
+                            args[i] = stack.pop();
+                        }
+
+                stack.push(func.function(args));
             }
         }
 
@@ -85,8 +71,8 @@ public class Evaluator extends ExpressionHandler{
             throw new IllegalArgumentException("La expresión es inválida: sobran operandos.");
         }
 
-        this.ans = stack.pop();
-        return this.ans;
+
+        return stack.pop(); // Resultado de la operacion.
     }
 
     private double evaluateFunction(String function, double value) {
