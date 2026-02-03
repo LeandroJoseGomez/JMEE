@@ -46,18 +46,6 @@ public class Parser extends ExpressionHandler{
                 operators.push(token);// Añadir el operador luego de la comparación.
 
                 /*
-                 * Si la pila de operadores esta vacia entonces, se añade el operador directamente.
-                 * Si la pila no esta vacia y el operador recibido tiene mayor precedencia que
-                 * el operador del tope de la pila entonces, se añade.
-                 */
-                if (operators.isEmpty()) {
-                    operators.push(token);
-                } else
-                if (precedence.get(token) > precedence.get(operators.peek())) {
-                    operators.push(token);
-                }
-
-                /*
                  * Si es un paréntesis de apertura entonces, se añade directamente a la pila.
                  * Si es un paréntesis de cierre entonces, se vacia la pila hasta encontrar un
                  * paréntesis de apertura.
