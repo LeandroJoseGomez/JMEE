@@ -43,7 +43,10 @@ public class Evaluator extends ExpressionHandler{
                     case "+" -> a + b;
                     case "-" -> a - b;
                     case "*" -> a * b;
-                    case "/" -> a / b;
+                    case "/" -> {
+                        if (b == 0) throw new ArithmeticException("No se puede dividir entre CERO");
+                        yield a / b;
+                    }
                     case "^" -> Math.pow(a, b);
                     default -> throw new UnsupportedOperationException("Operador no soportado: " + token);
                 });
