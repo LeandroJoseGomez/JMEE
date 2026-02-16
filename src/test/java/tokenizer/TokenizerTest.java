@@ -11,7 +11,7 @@ public class TokenizerTest {
 
     @Test
     public void tokenize() {
-        List<String> result = Tokenizer.tokenize("Sin(x)-cOs(y)");
+        List<String> result = Tokenizer.tokenize("10>=5");
         List<String> expResult = Arrays.asList("sin", "(", "x", ")", "-", "cos", "(", "y", ")");
 
         System.out.println(result); // Solo para uso interno.

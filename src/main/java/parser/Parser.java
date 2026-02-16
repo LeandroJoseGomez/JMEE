@@ -9,7 +9,7 @@ import java.util.*;
  * @see <a>https://es.wikipedia.org/wiki/Algoritmo_shunting_yard</a>
  *
  * @author Leandro Gómez.
- * @version 1.0.0
+ * @version 1.1.0
  * @since 0.9.0
  */
 public class Parser extends ExpressionHandler{
@@ -32,16 +32,21 @@ public class Parser extends ExpressionHandler{
                 posfixExpression.add(String.valueOf(variables.get(token)));
             }
         else
-            if (isToken(token)) {
+            if (containsToken(token)) {
                 /*
-                 * Mientras que el token sea un operador con menor o igual precedencia que
-                 * el operador en el tope de la pila se sacaran operadores de la pila
-                 * hasta que el operador con el que se compare tenga menor precedencia.
+                 * Mientras que el token sea un operador con menor o igual precedencia que el operador en el tope de
+                 * la pila se sacaran operadores de la pila hasta que el operador con el que se compare tenga menor
+                 * precedencia.
                  */
-                while (!operators.isEmpty() && precedence.containsKey(operators.peek())
-                        && precedence.get(token) <= precedence.get(operators.peek())) {
+                while (!operators.isEmpty() && containsToken(operators.peek())) {
+                    if (getPrecedence(token) < getPrecedence(operators.peek())
+                            || (getPrecedence(operators.peek()) == getPrecedence(token)
+                            && isLeftAssociative(token))){ // Asosiativo a la derecha
 
-                    posfixExpression.add(operators.pop());
+                        posfixExpression.add(operators.pop());
+                    } else {
+                        break;
+                    }
                 }
                 operators.push(token);// Añadir el operador luego de la comparación.
 

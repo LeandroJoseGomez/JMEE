@@ -1,7 +1,7 @@
 package main;
 
 import builder.Builder;
-import parser.CustomFunction;
+import custom.CustomFunction;
 
 public class MainClass {
     public static void main(String[] args) {
@@ -23,11 +23,11 @@ public class MainClass {
         };
         customFunction2.addFunction();
 
-        Builder builder = new Builder("sum(3,2) * min(x,y)"); // (3+2) * (10-5) => 25
+        Builder builder = new Builder("2^3^2"); //  sum(3,2) * min(10,5)
 
         // Se setean los valores de las variables.
-        builder.setParameter("x", 10);
-        builder.setParameter("y", 5);
+        //builder.setParameter("x", 10);
+        //builder.setParameter("y", 5);
 
         builder.builExpression();// Se procesa.
 
@@ -39,6 +39,11 @@ public class MainClass {
         System.out.println("Tokens => " + builder.getTokens());
         System.out.println("Tokens en notacion posfija => " + builder.getPosfixExpression());
         System.out.println("El resultado fue => " +result);
+
+
+
+
+
 
     }
 }

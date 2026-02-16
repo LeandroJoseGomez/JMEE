@@ -2,6 +2,11 @@ package functions.common;
 
 import functions.Function;
 
+/**
+ * @author Leandro Gómez.
+ * @version 1.1.0
+ * @since 1.1.0
+ */
 public class Pow implements Function {
     @Override
     public String getName() {
@@ -10,7 +15,7 @@ public class Pow implements Function {
 
     @Override
     public int getArgsCount() {
-        return 0;
+        return 2;
     }
 
     @Override
