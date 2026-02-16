@@ -29,9 +29,6 @@ permitiendo identificar cualquier número real y algunas funciones básicas (tri
 y determinar si se trata de un número o función, apoyándose en un buffer temporal el cual ira ensamblando el número o
 función correspondiente.
 
-## Diagrama de clases
-<img src="https://github.com/LeandroJoseGomez/JMEE/blob/main/Diagrama%20de%20clases%20JMEE.svg"></img>
-
 ### Versiones y sus objetivos
 - **v1.0.0:** Poder evaluar expresiones matematicas basicas como por ejemplo "3+3*sin(90)", contar con la funcion de
   soportar variables/parametros y que el usuario tenga la opcion de crear sus propias funciones personalizadas. Todo
