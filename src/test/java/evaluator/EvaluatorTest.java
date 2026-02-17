@@ -1,47 +1,64 @@
 package evaluator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import parser.Parser;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.List;
 
-public class EvaluatorTest {
-/*
-    @Test
-    public void evaluateExpression() {
-        for (int i = 0; i<= 1000; i++){
-            Evaluator instance = new Evaluator("-7/(-3+-3.33*4- -20/10)^2");
-            instance.parseExpression();
-            double expResult = -0.034135950813020816;
+import static org.junit.jupiter.api.Assertions.*;
 
-            double result = instance.evaluateExpression();
-            System.out.println(result);
-            assertEquals(expResult, result, 0);
-        }
-
-    }
+class EvaluatorTest {
 
     @Test
-    public void evaluateExpressionTrigonometric() {
-        Evaluator instance = new Evaluator("sIn(90) + CoS(90)");
-        instance.parseExpression();
-        double expResult = 1;
+    void evaluateExpression() {
 
-        double result = instance.evaluateExpression();
-        assertEquals(expResult, result, 0);
-    }
-
-    @Test // error de calculo.
-    public void evaluateExpressionWhitVariables() {
-        Evaluator instance = new Evaluator("-7/(-3+-x*4- -20/10)^y");
-        instance.setParameter("x", 3.33); // siempre en minusculas.
-        instance.setParameter("y", 2);
-        instance.parseExpression();
+        List<String> psofixExpression = Arrays.asList
+                                        ("-7", "-3", "-3.33", "4", "*", "+", "-20", "10", "/", "-", "2", "^", "/");
         double expResult = -0.034135950813020816;
 
-        double result = instance.evaluateExpression();
-        assertEquals(expResult, result, 0);
+        double result = Evaluator.evaluateExpression(psofixExpression);
+        assertEquals(expResult, result);
     }
 
- */
+    @Test
+    void evaluateExpression_2() {
+        List<String> psofixExpression = Arrays.asList
+                ("0", "sin", "-5.5", "-2", "abs", "*", "-");
+        double expResult = 11;
+
+        double result = Evaluator.evaluateExpression(psofixExpression);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void evaluateExpression_3() {
+        List<String> psofixExpression = Arrays.asList
+                ("-10.5", "2", "2", "^", "-3", "1", "+", "-", "/", "2", "*");
+        double expResult = -3.5;
+
+        double result = Evaluator.evaluateExpression(psofixExpression);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void evaluateExpression_4() {
+        List<String> psofixExpression = Arrays.asList
+                ("100", "log10", "3.5", "-1.5", "+", "2", "^", "*");
+        double expResult = 400;
+
+        double result = Evaluator.evaluateExpression(psofixExpression);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void evaluateExpression_5() {
+        List<String> psofixExpression = Arrays.asList
+                ("2", "3", "2", "^", "^", "NEG", "500", "12", "+", "/", "1.5", "+");
+        double expResult = 2.5;
+
+        double result = Evaluator.evaluateExpression(psofixExpression);
+        assertEquals(expResult, result);
+    }
 
 }

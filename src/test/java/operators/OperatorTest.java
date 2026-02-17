@@ -1,17 +1,21 @@
-package parser;
+package operators;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExpressionHandlerTest {
+class OperatorTest {
+
+    @Test
+    void getSymbol() {
+    }
 
     @Test
     void getPrecedence() {
     }
 
     @Test
-    void containsToken() {
+    void getArgsCount() {
     }
 
     @Test
@@ -19,6 +23,6 @@ class ExpressionHandlerTest {
     }
 
     @Test
-    void isNumber() {
+    void execute() {
     }
 }

@@ -20,7 +20,7 @@ public class Parser extends ExpressionHandler{
      * @return Lista de tokens en notacion posfija.
      * @since 0.9.0
      */
-    public List<String> infixToPostfix(List<String> tokens) {
+    public static List<String> infixToPostfix(List<String> tokens) {
         List<String> posfixExpression = new ArrayList<>();
         Stack<String> operators = new Stack<>();
 

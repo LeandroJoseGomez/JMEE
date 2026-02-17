@@ -1,43 +1,58 @@
 package parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ParserTest {
+class ParserTest extends ExpressionHandler {
 
     @Test
-    public void infixToPostfix() { //               -3", "+", "-5", "*", "sin", "(", "30", ")
+    void infixToPostfix() {
+        List<String> posfixExpression = Arrays.asList("-3", "+", "-5", "*", "sin", "(", "90", ")");
+        List<String> expResult = Arrays.asList("-3", "-5", "90", "sin", "*", "+");
 
-        List<String> expression =
-                Arrays.asList
-                        ("-7", "/", "-", "(", "-3", "-", "3.33", "*", "4", "+", "20", "/", "10", ")", "^", "2");
-
-        //Parser parser = new Parser(expression);
-
-        List<String> expResult =
-                Arrays.asList("-3", "-5", "30", "sin", "*", "+");
-
-       // List<String> result = parser.infixToPostfix();
-        //System.out.println(result);
-        //assertEquals(expResult, result);
+        List<String> result = Parser.infixToPostfix(posfixExpression);
+        assertEquals(expResult, result);
     }
 
     @Test
-    public void infixToPostfix2() {
-        List<String> expression =
-                Arrays.asList
-                        ("-3", "^", "2");
+    void infixToPostfix_2() {
+        List<String> posfixExpression = Arrays.asList("2", "^", "3", "^", "2");
+        List<String> expResult = Arrays.asList("2", "3", "2", "^", "^");
 
-        //Parser parser = new Parser(expression);
+        List<String> result = Parser.infixToPostfix(posfixExpression);
+        assertEquals(expResult, result);
+    }
 
-        List<String> expResult =
-                Arrays.asList("-3", "2", "^");
+    @Test
+    void infixToPostfix_3() {
+        List<String> posfixExpression = Arrays.asList("cos", "(", "40", "+", "5", ")", "*", "3");
+        List<String> expResult = Arrays.asList("40", "5", "+", "cos", "3", "*");
 
-        //List<String> result = parser.infixToPostfix();
-       // assertEquals(expResult, result);
+        List<String> result = Parser.infixToPostfix(posfixExpression);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void infixToPostfix_4() {
+        List<String> posfixExpression = Arrays.asList
+                ("sin", "(", "90", ")", "+", "cos", "(", "90", ")", "+", "tan", "(", "90", ")" );
+
+        List<String> expResult = Arrays.asList("90", "sin", "90", "cos", "+",  "90", "tan", "+");
+
+        List<String> result = Parser.infixToPostfix(posfixExpression);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void infixToPostfix_5() {
+        List<String> posfixExpression = Arrays.asList("(", "10", "-", "2", ")", "*", "5", "^", "2");
+        List<String> expResult = Arrays.asList("10", "2", "-", "5", "2", "^", "*");
+
+        List<String> result = Parser.infixToPostfix(posfixExpression);
+        assertEquals(expResult, result);
     }
 }

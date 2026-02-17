@@ -1,24 +1,24 @@
-package parser;
+package functions;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExpressionHandlerTest {
+class FunctionTest {
+
+    @Test
+    void getName() {
+    }
+
+    @Test
+    void getArgsCount() {
+    }
 
     @Test
     void getPrecedence() {
     }
 
     @Test
-    void containsToken() {
-    }
-
-    @Test
-    void isLeftAssociative() {
-    }
-
-    @Test
-    void isNumber() {
+    void execute() {
     }
 }

@@ -26,7 +26,7 @@ public class Evaluator extends ExpressionHandler{
      * @return Variable double con el resultado de la expresion evaluada en notación posfija.
      * @since 1.0.0
      */
-    public double evaluateExpression(List<String> posfixExpression) {
+    public static double evaluateExpression(List<String> posfixExpression) {
         if (posfixExpression == null) {
             throw new IllegalStateException("Se debe llamar al metodo parseExpression() antes de evaluar.");
         }

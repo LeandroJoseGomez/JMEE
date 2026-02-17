@@ -17,7 +17,7 @@ public class ExpressionHandler {
 
     protected static HashMap<String, Double> variables = new HashMap<>();
 
-    protected int getPrecedence(String token) {
+    protected static int getPrecedence(String token) {
         if (OperatorRegistry.isOperator(token)) {
             return OperatorRegistry.get(token).getPrecedence();
         }
@@ -27,11 +27,11 @@ public class ExpressionHandler {
         return 0; // Por defecto
     }
 
-    protected boolean containsToken(String token){
+    protected static boolean containsToken(String token){
         return OperatorRegistry.isOperator(token) || FunctionRegistry.isFunction(token);
     }
 
-    protected boolean isLeftAssociative(String token) {
+    protected static boolean isLeftAssociative(String token) {
         if (OperatorRegistry.isOperator(token)) {
             return OperatorRegistry.get(token).isLeftAssociative();
         }
@@ -43,7 +43,7 @@ public class ExpressionHandler {
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un número y FALSE en caso de que no lo sea.
      */
-    protected boolean isNumber(String token) {
+    protected static boolean isNumber(String token) {
         try {
             Double.valueOf(token);
             return true;
