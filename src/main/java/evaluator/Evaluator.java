@@ -1,7 +1,10 @@
 
 package evaluator;
 
-import parser.CustomFunction;
+import functions.Function;
+import functions.FunctionRegistry;
+import operators.Operator;
+import operators.OperatorRegistry;
 import parser.ExpressionHandler;
 
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.Stack;
  * algoritmo Shunting Yard
  *
  * @author Leandro Gómez.
- * @version 1.0.0
+ * @version 1.1.0
  * @since 0.9.0
  */
 public class Evaluator extends ExpressionHandler{
@@ -23,7 +26,7 @@ public class Evaluator extends ExpressionHandler{
      * @return Variable double con el resultado de la expresion evaluada en notación posfija.
      * @since 1.0.0
      */
-    public double evaluateExpression(List<String> posfixExpression) {
+    public static double evaluateExpression(List<String> posfixExpression) {
         if (posfixExpression == null) {
             throw new IllegalStateException("Se debe llamar al metodo parseExpression() antes de evaluar.");
         }
@@ -33,38 +36,34 @@ public class Evaluator extends ExpressionHandler{
         for (String token : posfixExpression) {
             if (isNumber(token)) {
                 stack.push(Double.valueOf(token));
-            } else if (isOperator(token)) {
-                if (stack.size() < 2) throw new IllegalArgumentException("Expresión mal formada: faltan operandos para " + token);
+            } else if (OperatorRegistry.isOperator(token)) {
 
-                double b = stack.pop();
-                double a = stack.pop();
+                Operator op = OperatorRegistry.get(token);
+                final int numArgs = op.getArgsCount();
 
-                stack.push(switch (token) {
-                    case "+" -> a + b;
-                    case "-" -> a - b;
-                    case "*" -> a * b;
-                    case "/" -> a / b;
-                    case "^" -> Math.pow(a, b);
-                    default -> throw new UnsupportedOperationException("Operador no soportado: " + token);
-                });
-            } else if (isFunction(token)) {
-                if (stack.isEmpty()) throw new IllegalArgumentException("Expresión mal formada: falta argumento para la función " + token);
+                final double[] args = new double[numArgs];
+                for (int i = numArgs - 1; i >= 0; i--) { //va e atras en adelante rellenando.
+                    if (stack.isEmpty()) throw new IllegalArgumentException("Faltan argumentos para: " + token);
+                    args[i] = stack.pop();
+                }
 
-                double val = stack.pop();
-                stack.push(evaluateFunction(token, val));
-            } else
-                if (customFunctions.containsKey(token)) {
-                    CustomFunction func = customFunctions.get(token);
-                    int numArgs = func.getFunctionArgument();
+                // Se ejecuta la clase correspondiente (Addition, Subtraction, etc.)
+                stack.push(op.execute(args));
 
+            } else if (FunctionRegistry.isFunction(token)) {
 
-                    double[] args = new double[numArgs];
-                        for (int i = numArgs - 1; i >= 0; i--) {
-                            if (stack.isEmpty()) throw new IllegalArgumentException("Faltan argumentos para: " + token);
-                            args[i] = stack.pop();
-                        }
+                Function func = FunctionRegistry.get(token);
+                final int numArgs = func.getArgsCount();
 
-                stack.push(func.function(args));
+                final double[] args = new double[numArgs];
+                for (int i = numArgs - 1; i >= 0; i--) {
+                    if (stack.isEmpty()) throw new IllegalArgumentException("Faltan argumentos para: " + token);
+                    args[i] = stack.pop();
+                }
+
+                // Se ejecuta la clase correspondiente (Sin, Mean, Sqrt, etc.)
+                stack.push(func.execute(args));
+
             }
         }
 
@@ -74,17 +73,5 @@ public class Evaluator extends ExpressionHandler{
 
 
         return stack.pop(); // Resultado de la operacion.
-    }
-
-    private double evaluateFunction(String function, double value) {
-        return switch (function) {
-            case "sqrt" -> Functions.sqrt(value);
-            case "sin"  -> Functions.sin(value);
-            case "cos"  -> Functions.cos(value);
-            case "tan"  -> Functions.tan(value);
-            case "log"  -> Functions.log(value);
-            case "ln"   -> Functions.ln(value);
-            default     -> throw new UnsupportedOperationException("Función desconocida: " + function);
-        };
     }
 }

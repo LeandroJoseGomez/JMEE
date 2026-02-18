@@ -41,11 +41,11 @@ public class Builder extends ExpressionHandler {
 
     public void builExpression() {
         tokens = Tokenizer.tokenize(expression);
-        posfixExpression = new Parser().infixToPostfix(tokens);
+        posfixExpression = Parser.infixToPostfix(tokens);
     }
 
     public double evaluate(){
-        return new Evaluator().evaluateExpression(posfixExpression);
+        return Evaluator.evaluateExpression(posfixExpression);
     }
 
     public void setParameter(String parameter, double value){
