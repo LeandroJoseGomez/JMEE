@@ -1,8 +1,10 @@
+<div style="text-align: justify;">
+    
 # Descripcion
 En este documento se explicara e ilustrara como usar los diferentes metodos y clases de la libreria JMEE para evaluar 
 expresiones matematicas.
 
-Por el momento se estara trabajando en mejorar la capacidad de la libreria, de reconocer distintas funciones matematicas
+Por el momento se esta trabajando en mejorar la capacidad de la libreria, de reconocer distintas funciones matematicas
 asi como tambien que pueda trabajar con distintos tipos de operadores y que su arquitectura sea lo más modular posible.
 
 ### Evaluacion tipica
@@ -145,7 +147,7 @@ public class MainClass {
     }
 }
 ```
-
+<div/>
 
 
 
