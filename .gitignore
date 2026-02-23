@@ -13,6 +13,9 @@
 # Documentation
 /doc/
 
+# Documentation
+/target/
+
 # Package Files #
 *.jar
 *.war
