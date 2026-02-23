@@ -3,9 +3,9 @@ package functions.trigonometric;
 import functions.Function;
 
 /**
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.1.0
- * @since 1.1.0
+ * @since 1.2.0
  */
 public class Sin implements Function {
 

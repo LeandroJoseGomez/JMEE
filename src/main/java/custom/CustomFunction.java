@@ -24,7 +24,7 @@ import static functions.FunctionRegistry.register;
 /**
  * Representa una función personalizada definida por el usuario.
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.0.2
  * @since 1.0.0
  */
@@ -34,36 +34,68 @@ public abstract class CustomFunction implements Function {
     private int functionArgument;
     private int precedence;
 
+    /**
+     * Constructor de clase que obtiene el nombre y
+     * cantidad de argumentos de la función.
+     *
+     * @param name nombre de la función.
+     * @param arguments número de argumentos que tendra la función.
+     */
     public CustomFunction(String name, int arguments){
         functionName = name;
         functionArgument = arguments;
         precedence = 3;
     }
 
+    /**
+     * Retorna el nombre de la función.
+     * @return variable functionName.
+     */
     @Override
     public String getName() {
         return functionName;
     }
 
+    /**
+     * Retorna la cantidad de argumentos.
+     * @return variable functionArgument.
+     */
     @Override
     public int getArgsCount() {
         return functionArgument;
     }
 
+    /**
+     * Retorna la precedencia de la función.
+     * @return variable precedence.
+     */
     @Override
     public int getPrecedence() {
         return precedence;
     }
 
+    /**
+     * Metodo de la interfaz {@link functions.Function} para evaluar la función.
+     * @param args argumentos de la función.
+     * @return resultado de la función.
+     */
     @Override
     public double execute(double... args) {
         return function(args);
     }
 
-    // Método original para el usuario.
-    public abstract double function(double... arguments);
+    /**
+     * Método propio para definir la función.
+     * @param args argumentos de la función.
+     * @return resultado de la función.
+     */
+    public abstract double function(double... args);
 
     // Registra esta función en el sistema global.
+
+    /**
+     * Encargado de añadir la función al registro global.
+     */
     public void addFunction() {
         register(this);
     }

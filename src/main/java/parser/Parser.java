@@ -24,17 +24,16 @@ import java.util.*;
  * del algoritmo Shunting Yard creado por el cientifico.
  * @see <a>https://es.wikipedia.org/wiki/Algoritmo_shunting_yard</a>
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.1.0
  * @since 0.9.0
  */
 public class Parser extends ExpressionHandler{
 
     /**
-     * Esta implementacion del algoritmo Shunting Yard obvia cualquier signo o funcion que no este en la precedencia.
+     * Esta implementación del algoritmo Shunting Yard obvia cualquier signo o función que no esté en el registro.
      * @param tokens Lista de tokes formateados proporcionada por el {@link tokenizer.Tokenizer}
-     * @return Lista de tokens en notacion posfija.
-     * @since 0.9.0
+     * @return Lista de tokens en notación posfija.
      */
     public static List<String> infixToPostfix(List<String> tokens) {
         List<String> posfixExpression = new ArrayList<>();

@@ -22,9 +22,12 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 /**
- * @author Leandro Gómez.
+ * Esta clase se encarga de llevar un registro de todos los operadores precargados/existentes y
+ * aquellos que cree el usuario.
+ *
+ * @author Leandro J. Gómez.
  * @version 1.1.0
- * @since 1.1.0
+ * @since 1.2.0
  */
 public class OperatorRegistry {
     private static final Map<String, Operator> operators = new HashMap<>();
@@ -37,11 +40,21 @@ public class OperatorRegistry {
         }
     }
 
-    public static Operator get(String name) {
-        return operators.get(name.toLowerCase());
+    /**
+     * Proporciona la instancia de un operador.
+     * @param symbol Símbolo del operador.
+     * @return Devuelve el operador especificado como una instancia de {@link operators.Operator}.
+     */
+    public static Operator get(String symbol) {
+        return operators.get(symbol.toLowerCase());
     }
 
-    public static boolean isOperator(String name) {
-        return operators.containsKey(name.toLowerCase());
+    /**
+     * Verífica si el token especificado coincide con algún símbolo de operadores existentes.
+     * @param symbol Símbolo del operador.
+     * @return TRUE en caso de que si lo encuentre, FALSE en caso de que no.
+     */
+    public static boolean isOperator(String symbol) {
+        return operators.containsKey(symbol.toLowerCase());
     }
 }

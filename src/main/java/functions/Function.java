@@ -18,13 +18,36 @@
 package functions;
 
 /**
- * @author Leandro Gómez.
+ * Interfaz que define la estructura de las funciones.
+ *
+ * @author Leandro J. Gómez.
  * @version 1.1.0
- * @since 1.1.0
+ * @since 1.2.0
  */
 public interface Function {
-    String getName(); // Nombre en minuscula.
+
+    /**
+     * Retorna el nombre de una función, el cual debe de ser definido en minusculas ej. "sin".
+     * @return Nombre de la función.
+     */
+    String getName();
+
+    /**
+     * Retorna la cantidad de argumentos que acepta la función.
+     * @return Dato entero que índica la cantidad de argumentos.
+     */
     int getArgsCount();
+
+    /**
+     * Retorna la precedencia de una función (valor recomendado: 3).
+     * @return Dato entero que índica la precedencia.
+     */
     int getPrecedence();
+
+    /**
+     * Método encargado de definir la función en sí y como se evalúa.
+     * @param args Argumentos de la función.
+     * @return Dato entero que índica el resultado.
+     */
     double execute(double... args);
 }

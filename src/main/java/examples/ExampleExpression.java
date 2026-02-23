@@ -1,9 +1,9 @@
-package main;
+package examples;
 
 import builder.Builder;
 import custom.CustomFunction;
 
-public class MainClass {
+public class ExampleExpression {
     public static void main(String[] args) {
 
         // Creacion de funciones personalizadas.
@@ -39,11 +39,5 @@ public class MainClass {
         System.out.println("Tokens => " + builder.getTokens());
         System.out.println("Tokens en notacion posfija => " + builder.getPosfixExpression());
         System.out.println("El resultado fue => " +result);
-
-
-
-
-
-
     }
 }

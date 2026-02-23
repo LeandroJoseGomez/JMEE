@@ -22,9 +22,12 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 /**
- * @author Leandro Gómez.
+ * Esta clase se encarga de llevar un registro de todas las funciones precargadas/existentes y
+ * aquellas que cree el usuario.
+ *
+ * @author Leandro J. Gómez.
  * @version 1.1.0
- * @since 1.1.0
+ * @since 1.2.0
  */
 public class FunctionRegistry {
     private static Map<String, Function> functions = new HashMap<>();
@@ -37,14 +40,28 @@ public class FunctionRegistry {
         }
     }
 
+    /**
+     * Proporciona la instancia de una función.
+     * @param name Nombre de la función.
+     * @return Devuelve la función especificada como una instancia de {@link functions.Function}.
+     */
     public static Function get(String name) {
         return functions.get(name.toLowerCase());
     }
 
+    /**
+     * Verífica si el token especificado coincide con algún nombre de las funciones existentes.
+     * @param name Nombre de la función.
+     * @return TRUE en caso de que si la encuentre, FALSE en caso de que no.
+     */
     public static boolean isFunction(String name) {
         return functions.containsKey(name.toLowerCase());
     }
 
+    /**
+     * Guarda la función creada en el registro.
+     * @param function Instancia de {@link functions.Function}.
+     */
     public static void register(Function function) {
         functions.put(function.getName().toLowerCase(), function);
     }

@@ -23,16 +23,24 @@ import operators.OperatorRegistry;
 import java.util.HashMap;
 
 /**
- * Clase padre la cual gestiona las precedencias de los operadores y funciones al igual que los metodos de verificación.
+ * Clase global la cual agrupa y distribuye los metodos necesarios para la verificacion de expresiones.
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.1.0
  * @since 0.9.0
  */
 public class ExpressionHandler {
 
+    /**
+     * Hashmap auxiliar para guardar las variables/parametros y su respectivo valor.
+     */
     protected static HashMap<String, Double> variables = new HashMap<>();
 
+    /**
+     * Identifica si se trata de un operador o función y posteriormente devuelve el dato correspondiente.
+     * @param token token el cual puede ser un operador, función u operando.
+     * @return Dato entero que representa la precedencia.
+     */
     protected static int getPrecedence(String token) {
         if (OperatorRegistry.isOperator(token)) {
             return OperatorRegistry.get(token).getPrecedence();
@@ -43,10 +51,19 @@ public class ExpressionHandler {
         return 0; // Por defecto
     }
 
+    /**
+     * Verífica si el token es una función u operador válido.
+     * @param token token el cual puede ser un operador, función u operando.
+     * @return TRUE en caso de que si lo sea, FALSE en caso que no.
+     */
     protected static boolean containsToken(String token){
         return OperatorRegistry.isOperator(token) || FunctionRegistry.isFunction(token);
     }
 
+    /**
+     * Verífica si el operador es asociativo a la izquierda o no.
+     * @return TRUE en caso de que si lo sea, FALSE en caso que no.
+     */
     protected static boolean isLeftAssociative(String token) {
         if (OperatorRegistry.isOperator(token)) {
             return OperatorRegistry.get(token).isLeftAssociative();
@@ -55,7 +72,7 @@ public class ExpressionHandler {
     }
 
     /**
-     * Verifica si el token en cuestión es un número.
+     * Verífica si el token en cuestión es un número.
      * @param token Posible signo, número o función de la expresión a evaluar.
      * @return TRUE en caso de que sea un número y FALSE en caso de que no lo sea.
      */

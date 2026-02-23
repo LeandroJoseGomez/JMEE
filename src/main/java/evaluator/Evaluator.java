@@ -27,20 +27,19 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Clase encargada de analizar y evaluar la expresion dada en notacion posfija, siguiendo la implementacion del
+ * Clase encargada de analizar y evaluar la expresión dada en notación posfija, siguiendo la implementación del
  * algoritmo Shunting Yard
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.1.0
  * @since 0.9.0
  */
 public class Evaluator extends ExpressionHandler{
 
     /**
-     * Metodo encargado de evaluar la expresión
-     * @param posfixExpression Lista de String que contiene los tokens de la expresion en notacion posfija.
-     * @return Variable double con el resultado de la expresion evaluada en notación posfija.
-     * @since 1.0.0
+     * Metodo encargado de evaluar la expresión.
+     * @param posfixExpression Lista de String que contiene los tokens de la expresión en notación posfija.
+     * @return Variable double con el resultado de la expresión evaluada en notación posfija.
      */
     public static double evaluateExpression(List<String> posfixExpression) {
         if (posfixExpression == null) {

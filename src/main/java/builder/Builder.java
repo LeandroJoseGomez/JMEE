@@ -25,8 +25,9 @@ import parser.Parser;
 import java.util.List;
 
 /**
+ * Clase auxiliar encargada de construir y evaluar la expresión.
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -36,35 +37,68 @@ public class Builder extends ExpressionHandler {
     private List<String> tokens;
     private List<String> posfixExpression;
 
+    /**
+     * Constructor de clase el cual obtiene la expresión.
+     * @param expression expresión a evaluar.
+     */
     public Builder (String expression){
         this.expression = expression;
     }
 
+    /**
+     * Retorna la expresión original.
+     * @return variable expression.
+     */
     public String getExpression() {
         return expression;
     }
 
+    /**
+     * Retorna los tokens de la expresión.
+     * @return variable tokens.
+     */
     public List<String> getTokens() {
         return tokens;
     }
 
+    /**
+     * Retorna una lista con los tokens ordenados de manera posfija.
+     * @return variable posfixExpression.
+     */
     public List<String> getPosfixExpression() {
         return posfixExpression;
     }
 
+    /**
+     * Metodo para consultar el valor de un parametro.
+     * @param parameterName nombre del parametro (x,y,z,etc.)
+     * @return retorna el valor del parametro especificado.
+     */
     public double getParameterValue(String parameterName){
         return variables.get(parameterName);
     }
 
+    /**
+     * Prosesa la expresión en tokens y posteriormente la parsea.
+     */
     public void builExpression() {
         tokens = Tokenizer.tokenize(expression);
         posfixExpression = Parser.infixToPostfix(tokens);
     }
 
+    /**
+     * Método encargado de calcular el valor de la expresión.
+     * @return retorna el valor de la expresión.
+     */
     public double evaluate(){
         return Evaluator.evaluateExpression(posfixExpression);
     }
 
+    /**
+     * Método encargado de insertar el valor de una variable/parametro en la expresión.
+     * @param parameter nombre del parametro.
+     * @param value valor del parametro.
+     */
     public void setParameter(String parameter, double value){
         variables.put(parameter, value);
     }

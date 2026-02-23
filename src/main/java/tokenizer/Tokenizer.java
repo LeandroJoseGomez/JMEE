@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * Clase encargada del la tokenización de la expresión original, utilizando un enfoque basado buffers para identificar
- * funciones y numeros reales.
+ * funciones y números reales.
  *
- * @author Leandro Gómez.
+ * @author Leandro J. Gómez.
  * @version 1.0.0
  * @since 0.9.0
  */
