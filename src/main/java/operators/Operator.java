@@ -17,6 +17,9 @@
 
 package operators;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * Interfaz que define la estructura de las funciones.
  *
@@ -54,5 +57,5 @@ public interface Operator {
      * @param args Argumentos aceptados por el operador.
      * @return Dato entero que índica el resultado.
      */
-    double execute(double... args);
+    BigDecimal execute(MathContext mathContext, BigDecimal... args);
 }

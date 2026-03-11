@@ -3,36 +3,23 @@ package examples;
 import builder.Builder;
 import custom.CustomFunction;
 
+import java.math.BigDecimal;
+
 public class ExampleExpression {
     public static void main(String[] args) {
 
-        // Creacion de funciones personalizadas.
-        CustomFunction customFunction = new CustomFunction("sum",2) {
-            @Override
-            public double function(double... arguments) {
-                return arguments[0] + arguments[1];
-            }
-        };
-        customFunction.addFunction();
-
-        CustomFunction customFunction2 = new CustomFunction("min",2) {
-            @Override
-            public double function(double... arguments) {
-                return arguments[0] - arguments[1];
-            }
-        };
-        customFunction2.addFunction();
-
-        Builder builder = new Builder("2^3^2"); //  sum(3,2) * min(10,5)
+        Builder builder = new Builder("2+2"); //  sum(3,2) * min(10,5)
+        Builder builder2 = new Builder("1+1");
 
         // Se setean los valores de las variables.
         //builder.setParameter("x", 10);
         //builder.setParameter("y", 5);
 
         builder.builExpression();// Se procesa.
+        builder2.builExpression();
 
         // Se evalua.
-        double result = builder.evaluate();
+        BigDecimal result = builder.evaluate();
 
         // Se muestra.
         System.out.println("Expresion a evaluar => " +builder.getExpression());

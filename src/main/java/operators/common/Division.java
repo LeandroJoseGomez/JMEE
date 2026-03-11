@@ -19,6 +19,9 @@ package operators.common;
 
 import operators.Operator;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * @author Leandro J. Gómez.
  * @version 1.1.0
@@ -45,13 +48,13 @@ public class Division implements Operator {
         return true;
     }
 
+
     @Override
-    public double execute(double... args) {
-        if (args[1] == 0){
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        if (args[1].signum() == 0){
             throw new ArithmeticException("Error al dividir entre CERO");
         }else{
-            return args[0] / args[1];
+            return args[0].divide(args[1], mathContext);
         }
-
     }
 }

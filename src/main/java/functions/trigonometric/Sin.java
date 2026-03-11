@@ -1,6 +1,10 @@
 package functions.trigonometric;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import functions.Function;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * @author Leandro J. Gómez.
@@ -25,7 +29,7 @@ public class Sin implements Function {
     }
 
     @Override
-    public double execute(double... args) {
-        return Math.sin(Math.toRadians(args[0]));
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        return BigDecimalMath.sin(args[0], mathContext);
     }
 }

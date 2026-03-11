@@ -1,6 +1,10 @@
 package functions.logarithmic;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import functions.Function;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * @author Leandro J. Gómez.
@@ -24,7 +28,7 @@ public class Ln implements Function {
     }
 
     @Override
-    public double execute(double... args) {
-        return Math.log(args[0]);
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        return BigDecimalMath.log(args[0], mathContext);
     }
 }

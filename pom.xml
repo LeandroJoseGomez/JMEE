@@ -29,6 +29,14 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/ch.obermuhlner/big-math -->
+        <dependency>
+            <groupId>ch.obermuhlner</groupId>
+            <artifactId>big-math</artifactId>
+            <version>2.3.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

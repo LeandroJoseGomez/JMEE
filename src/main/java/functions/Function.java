@@ -17,6 +17,9 @@
 
 package functions;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * Interfaz que define la estructura de las funciones.
  *
@@ -49,5 +52,5 @@ public interface Function {
      * @param args Argumentos de la función.
      * @return Dato entero que índica el resultado.
      */
-    double execute(double... args);
+    BigDecimal execute(MathContext mathContext, BigDecimal... args);
 }

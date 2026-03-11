@@ -17,9 +17,12 @@
 
 package parser;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import functions.FunctionRegistry;
 import operators.OperatorRegistry;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
 
 /**
@@ -35,6 +38,8 @@ public class ExpressionHandler {
      * Hashmap auxiliar para guardar las variables/parametros y su respectivo valor.
      */
     protected static HashMap<String, Double> variables = new HashMap<>();
+
+    private static MathContext mathContext = MathContext.DECIMAL128; // por defecto
 
     /**
      * Identifica si se trata de un operador o función y posteriormente devuelve el dato correspondiente.
@@ -71,6 +76,14 @@ public class ExpressionHandler {
         return false;
     }
 
+    protected static MathContext getMathContext(){
+        return mathContext;
+    }
+
+    protected void setMathContext(MathContext mathContext){
+        this.mathContext = mathContext;
+    }
+
     /**
      * Verífica si el token en cuestión es un número.
      * @param token Posible signo, número o función de la expresión a evaluar.
@@ -78,7 +91,7 @@ public class ExpressionHandler {
      */
     protected static boolean isNumber(String token) {
         try {
-            Double.valueOf(token);
+            BigDecimalMath.toBigDecimal(token);
             return true;
         } catch (NumberFormatException e) {
             return false;

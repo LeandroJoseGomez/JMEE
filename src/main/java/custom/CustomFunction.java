@@ -19,6 +19,9 @@ package custom;
 
 import functions.Function;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 import static functions.FunctionRegistry.register;
 
 /**
@@ -30,8 +33,8 @@ import static functions.FunctionRegistry.register;
  */
 public abstract class CustomFunction implements Function {
 
-    private String functionName;
-    private int functionArgument;
+    private String name;
+    private int arguments;
     private int precedence;
 
     /**
@@ -42,9 +45,23 @@ public abstract class CustomFunction implements Function {
      * @param arguments número de argumentos que tendra la función.
      */
     public CustomFunction(String name, int arguments){
-        functionName = name;
-        functionArgument = arguments;
-        precedence = 3;
+        this.name = name;
+        this.arguments = arguments;
+        precedence = 3; // precedencia base para funciones.
+    }
+
+    /**
+     * Constructor de clase que obtiene el nombre
+     * cantidad de argumentos y la precedencia de la función.
+     *
+     * @param name nombre de la función.
+     * @param arguments número de argumentos que tendra la función.
+     * @param precedence define la importancia de la exprecion al momento de la evaluacion.
+     */
+    public CustomFunction(String name, int arguments, int precedence){
+        this.name = name;
+        this.arguments = arguments;
+        this.precedence = precedence;
     }
 
     /**
@@ -53,7 +70,7 @@ public abstract class CustomFunction implements Function {
      */
     @Override
     public String getName() {
-        return functionName;
+        return name;
     }
 
     /**
@@ -62,7 +79,7 @@ public abstract class CustomFunction implements Function {
      */
     @Override
     public int getArgsCount() {
-        return functionArgument;
+        return arguments;
     }
 
     /**
@@ -80,8 +97,8 @@ public abstract class CustomFunction implements Function {
      * @return resultado de la función.
      */
     @Override
-    public double execute(double... args) {
-        return function(args);
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {//////////////////// por terminar
+        return function(mathContext, args);
     }
 
     /**
@@ -89,9 +106,7 @@ public abstract class CustomFunction implements Function {
      * @param args argumentos de la función.
      * @return resultado de la función.
      */
-    public abstract double function(double... args);
-
-    // Registra esta función en el sistema global.
+    public abstract BigDecimal function(MathContext mathContext, BigDecimal... args);
 
     /**
      * Encargado de añadir la función al registro global.

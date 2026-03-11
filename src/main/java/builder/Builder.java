@@ -22,6 +22,8 @@ import evaluator.Evaluator;
 import parser.ExpressionHandler;
 import parser.Parser;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 
 /**
@@ -38,11 +40,21 @@ public class Builder extends ExpressionHandler {
     private List<String> posfixExpression;
 
     /**
-     * Constructor de clase el cual obtiene la expresión.
+     * Constructor base el cual solo obtiene la expresión y usa el valor del MathContext por defecto.
      * @param expression expresión a evaluar.
      */
     public Builder (String expression){
         this.expression = expression;
+    }
+
+    /**
+     * Constructor basado en MathContext para precision variable.
+     * @param expression expresión a evaluar.
+     * @param mathContext contexto o precision en la cual se quiera evaluar la expresión matematica.
+     */
+    public Builder (String expression, MathContext mathContext){
+        this.expression = expression;
+        setMathContext(mathContext);
     }
 
     /**
@@ -87,10 +99,10 @@ public class Builder extends ExpressionHandler {
     }
 
     /**
-     * Método encargado de calcular el valor de la expresión.
+     * Método encargado de calcular el valor de la expresión dada.
      * @return retorna el valor de la expresión.
      */
-    public double evaluate(){
+    public BigDecimal evaluate(){
         return Evaluator.evaluateExpression(posfixExpression);
     }
 
@@ -102,6 +114,4 @@ public class Builder extends ExpressionHandler {
     public void setParameter(String parameter, double value){
         variables.put(parameter, value);
     }
-
-
 }

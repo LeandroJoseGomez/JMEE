@@ -17,7 +17,11 @@
 
 package functions.common;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import functions.Function;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * @author Leandro J. Gómez.
@@ -41,7 +45,7 @@ public class Abs implements Function {
     }
 
     @Override
-    public double execute(double... args) {
-        return Math.abs(args[0]);
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        return args[0].abs(mathContext);
     }
 }

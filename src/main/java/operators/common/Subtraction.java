@@ -19,6 +19,9 @@ package operators.common;
 
 import operators.Operator;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * @author Leandro J. Gómez.
  * @version 1.1.0
@@ -46,7 +49,7 @@ public class Subtraction implements Operator {
     }
 
     @Override
-    public double execute(double... args) {
-        return args[0] - args[1];
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        return args[0].subtract(args[1], mathContext);
     }
 }
