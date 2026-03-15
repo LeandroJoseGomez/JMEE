@@ -82,11 +82,38 @@ public class Builder extends ExpressionHandler {
     }
 
     /**
+     * Da un valor <b>entero</b> a una variable/parametro en la expresión.
+     * @param parameter nombre o simbolo del parametro.
+     * @param value valor del parametro.
+     */
+    public void setParameter(String parameter, int value){
+        variables.put(parameter, BigDecimal.valueOf(value));
+    }
+
+    /**
+     * Da un valor de <b>punto flotante</b> a una variable/parametro en la expresión.
+     * @param parameter nombre del parametro.
+     * @param value valor del parametro.
+     */
+    public void setParameter(String parameter, double value){
+        variables.put(parameter, BigDecimal.valueOf(value));
+    }
+
+    /**
+     * Da un valor de tipo <b>BigDecimal</b> a una variable/parametro en la expresión.
+     * @param parameter nombre del parametro.
+     * @param value valor del parametro.
+     */
+    public void setParameter(String parameter, BigDecimal value){
+        variables.put(parameter, value);
+    }
+
+    /**
      * Metodo para consultar el valor de un parametro.
-     * @param parameterName nombre del parametro (x,y,z,etc.)
+     * @param parameterName nombre del parametro.
      * @return retorna el valor del parametro especificado.
      */
-    public double getParameterValue(String parameterName){
+    public BigDecimal getParameterValue(String parameterName){
         return variables.get(parameterName);
     }
 
@@ -104,14 +131,5 @@ public class Builder extends ExpressionHandler {
      */
     public BigDecimal evaluate(){
         return Evaluator.evaluateExpression(posfixExpression);
-    }
-
-    /**
-     * Método encargado de insertar el valor de una variable/parametro en la expresión.
-     * @param parameter nombre del parametro.
-     * @param value valor del parametro.
-     */
-    public void setParameter(String parameter, double value){
-        variables.put(parameter, value);
     }
 }
