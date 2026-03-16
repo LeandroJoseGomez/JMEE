@@ -37,7 +37,7 @@ public class ExpressionHandler {
     /**
      * Hashmap auxiliar para guardar las variables/parametros y su respectivo valor.
      */
-    protected static HashMap<String, Double> variables = new HashMap<>();
+    protected static HashMap<String, BigDecimal> variables = new HashMap<>();
 
     private static MathContext mathContext = MathContext.DECIMAL128; // por defecto
 
