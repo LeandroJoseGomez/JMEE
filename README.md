@@ -45,4 +45,6 @@ Se recomienda ver el archivo
   y fácil de entender implementando el Principio de Responsabilidad Única de SOLID. También se ha pensado en su extensión, cómo
   los desarrolladores pueden modificarla o crear sus propias funciones personalizadas.
 
+- **v1.2.9:** Se reconfiguró la librería para usar el tipo de dato BigDecimal, esto para llevar un mayor control y validez de los cálculos que requieren de extrema precisión.
+
 </div>
