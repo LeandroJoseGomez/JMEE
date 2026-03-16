@@ -17,6 +17,8 @@
 
 package operators;
 
+import functions.Function;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -56,5 +58,13 @@ public class OperatorRegistry {
      */
     public static boolean isOperator(String symbol) {
         return operators.containsKey(symbol.toLowerCase());
+    }
+
+    /**
+     * Guarda el operador creado en el registro.
+     * @param operator Instancia de {@link operators.Operator}.
+     */
+    public static void register(Operator operator) {
+        operators.put(operator.getSymbol().toLowerCase(), operator);
     }
 }
