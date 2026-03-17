@@ -1,21 +1,23 @@
 <div style="text-align: justify;">
     
-# Descripcion
-En este documento se explicara e ilustrara como usar los diferentes metodos y clases de la libreria JMEE para evaluar 
-expresiones matematicas.
+# Descripción
+En este documento se explica e ilustrará cómo usar los diferentes métodos y clases de la librería JMEE para evaluar 
+expresiones matemáticas. Por el momento se está trabajando en mejorar la capacidad de la librería de reconocer distintas funciones matemáticas, 
+así como también que pueda trabajar con distintos tipos de operadores y que su arquitectura sea lo más modular posible.
 
-Por el momento se esta trabajando en mejorar la capacidad de la libreria, de reconocer distintas funciones matematicas
-asi como tambien que pueda trabajar con distintos tipos de operadores y que su arquitectura sea lo más modular posible.
+### Evaluación típica
+Este es el caso más básico y práctico para evaluar una expresión; lo único que se necesita es:
 
-### Evaluacion tipica
-Este es el caso mas basico para usar la libreria, para evaluar una expresion lo unico que se necesita es:
-- Pasarle al Builder la expresion como un parametro de tipo String.
-- Contruir la expresion con el metodo buildExpression().
-- Evaluar la expresion.
+- Crear un objeto Builder.
+- Pasarle al builder la expresión.
+- Construir la expresión.
+- Evaluar la expresión.
 
 ```java
 import builder.Builder;
 import custom.CustomFunction;
+
+import java.math.BigDecimal;
 
 public class MainClass {
     public static void main(String[] args) {
@@ -26,29 +28,31 @@ public class MainClass {
         builder.builExpression(); // Se procesa.
 
         // Evaluar
-        double result = builder.evaluate();
+        BigDecimal result = builder.evaluate();
 
-        System.out.println("Expresion a evaluar => " + builder.getExpression());
+        System.out.println("Expresión a evaluar => " + builder.getExpression());
         System.out.println("Tokens => " + builder.getTokens());
-        System.out.println("Tokens en notacion posfija => " + builder.getPosfixExpression());
-        System.out.println("El resultado fue => " + result);
+        System.out.println("Tokens en notación posfija => " + builder.getPosfixExpression());
+        System.out.println("El resultado es => " + result);
     }
 }
 ```
 
-### Evaluacion con variables / parametros
-En este caso lo unico que cambia es que la exprecion contiene variables las cuales seran sustituidas por algun valor,
+### Evaluación con variables / parámetros
+En este caso lo único que cambia es que la expresión contiene variables, las cuales serán sustituidas por algún valor, 
 lo cual se puede realizar de la siguiente manera.
 
-_**Nota**: el programa solo identifica variables aisladas como en el ejemplo, no del tipo (xy+2)_
+_**Nota**: el programa solo identifica variables aisladas como en el ejemplo. No multiplicación implícita tipo (xy+2)._
 
 ```java
 import builder.Builder;
 import custom.CustomFunction;
 
+import java.math.BigDecimal;
+
 public class MainClass {
     public static void main(String[] args) {
-        
+
         Builder builder = new Builder("sin(X)+cos(Y)");
 
         // Se setean los valores de las variables.
@@ -56,66 +60,77 @@ public class MainClass {
         builder.setParameter("y", 5);
 
         builder.builExpression();
-        double result = builder.evaluate();
+        BigDecimal result = builder.evaluate();
 
         // Se muestra.
-        System.out.println("Expresion a evaluar => " +builder.getExpression());
+        System.out.println("Expresión a evaluar => " + builder.getExpression());
         System.out.println("Tokens => " + builder.getTokens());
-        System.out.println("Tokens en notacion posfija => " + builder.getPosfixExpression());
-        System.out.println("El resultado fue => " +result);
+        System.out.println("Tokens en notación posfija => " + builder.getPosfixExpression());
+        System.out.println("El resultado es => " + result);
 
     }
 }
 ```
 
-### Creacion de funciones customizadas
-La libreria cuenta con dos formas de crear funciones personalizadas, una de ellas es crear la funcion en la misma clase 
-donde se vaya a usar, excelente para integrar alguna que otra funcion basica que se requiera en el momento. La otra
-forma es creando una clase aparte que implemente de la interfaz Function y sobrescribir sus metodos.
+## Diferentes cosas de hacer lo mismo
+La librería cuenta con varias formas de implementar funciones y operadores matemáticos personalizados; todas estas 
+llevan al mismo resultado, pero dejan un espacio a la libertad del usuario de elegir la implementación que mejor convenga
+según el caso.
 
-_**Nota**: en ambos casos se requiere que se registre la funcion antes de usarla._
+_**Nota**: en todos los casos se requiere un objeto de tipo MathContext y que se registre la función u operador antes 
+de usarlo._
 
-**Usando la clase CustomFunction**
+### Creación de funciones customizadas usando la clase CustomFunction
+Esta implementación permite crear una función en la misma clase donde se vaya a usar; excelente para integrar alguna que
+otra función básica que se requiera en el momento.
+
 ```java
 import builder.Builder;
 import custom.CustomFunction;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class MainClass {
     public static void main(String[] args) {
 
         // Creación de funciones personalizadas.
-        CustomFunction customFunction = new CustomFunction("sum",2) {
+        CustomFunction functionX = new CustomFunction("funcX", 2) {
             @Override
-            public double function(double... arguments) {
-                return arguments[0] + arguments[1];
+            public BigDecimal function(MathContext mathContext, BigDecimal... args) {
+                return args[0].add(args[1], mathContext);
             }
         };
-        customFunction.addFunction(); // se agrega al registro.
+        functionX.addFunction(); // se agrega al registro.
 
-        CustomFunction customFunction2 = new CustomFunction("min",2) {
+        CustomFunction functionY = new CustomFunction("funcY", 2) {
             @Override
-            public double function(double... arguments) {
-                return arguments[0] - arguments[1];
+            public BigDecimal function(MathContext mathContext, BigDecimal... args) {
+                return args[0].substract(args[1], mathContext);
             }
         };
-        customFunction2.addFunction();
+        functionY.addFunction();
 
-        Builder builder = new Builder("sum(3,2) * min(10,5)");
+        // se especifica la cantidad de decimales con el parametro MathContext.
+        Builder builder = new Builder("funcX(3.7,2) * funcY(10,5.03)", new MathContext(10));
         builder.builExpression();
-        double result = builder.evaluate();
+        BigDecimal result = builder.evaluate();
 
     }
 }
 ```
 
-**Usando la interfaz Function**
+### Creación de funciones customizadas implementando la interfaz Function
+En este caso se debe de crear una clase aparte que implemente de la interfaz Function y sobrescriba sus métodos, ideal 
+para implementaciones mas complejas que requieran de una lógica más amplia.
+
 ```java
 import functions.Function;
 
-public class Custom implements Function {
+public class Random implements Function {
     @Override
     public String getName() {
-        return "custom";
+        return "random";
     }
 
     @Override
@@ -136,18 +151,105 @@ public class Custom implements Function {
 ```
 
 ```java
+import java.math.BigDecimal;
+
 public class MainClass {
     public static void main(String[] args) {
         // Registro de clase independiente
-        FunctionRegistry.register(new Custom());
+        FunctionRegistry.register(new Random());
 
-        Builder builder = new Builder("custom(10)");
+        Builder builder = new Builder("random(10)");
         builder.builExpression();
-        double result = builder.evaluate();
+        BigDecimal result = builder.evaluate();
     }
 }
 ```
-<div/>
+
+### Creación de funciones customizadas usando directamente la interfaz Function
+Este caso es parecido al primero en el que se utiliza la clase CustomFunction, pero se diferencia en que esta 
+implementación utiliza directamente la interfaz Function dentro de la clase sin necesidad de implementarla.
+
+```java
+import builder.Builder;
+import functions.Function;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+
+public class MainClass {
+    public static void main(String[] args) {
+
+        function = new Function() {
+            @Override
+            public String getName() {
+                return "log2";
+            }
+
+            @Override
+            public int getArgsCount() {
+                return 1;
+            }
+
+            @Override
+            public int getPrecedence() {
+                return 3;
+            }
+
+            @Override
+            public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+                return BigDecimalMath.log2(args[0], mathContext);
+            }
+        };
+        FunctionRegistry.register(function);// Se registra la funcion
+
+        // se especifica la cantidad de decimales con el parametro MathContext.
+        Builder builder = new Builder("log2(10)", new MathContext(5));
+        builder.builExpression();
+        BigDecimal result = builder.evaluate();
+
+    }
+}
+```
+### Creación de operadores customizados implementando la interfaz Operator
+Haciendo uso de la interfaz Operator se pueden crear diferentes tipos de operadores personalizados permitiendo la 
+creación de nuevos tipos de evaluaciones.
+
+```java
+package operators.common;
+
+import operators.Operator;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+
+public class Multiplication implements Operator {
+    @Override
+    public String getSymbol() {
+        return "*";
+    }
+
+    @Override
+    public int getPrecedence() {
+        return 1;
+    }
+
+    @Override
+    public int getArgsCount() {
+        return 2;
+    }
+
+    @Override
+    public boolean isLeftAssociative() {
+        return true;
+    }
+
+    @Override
+    public BigDecimal execute(MathContext mathContext, BigDecimal... args) {
+        return args[0].multiply(args[1], mathContext);
+    }
+}
+```
+</div>
 
 
 
