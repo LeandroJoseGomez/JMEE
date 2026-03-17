@@ -10,11 +10,13 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Documentation
-/doc/
+# Examples
+src/main/java/examples/
+
 
 # Documentation
 /target/
+/doc/
 
 # Package Files #
 *.jar
