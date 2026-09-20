@@ -121,8 +121,8 @@ public class Builder extends ExpressionHandler {
      * Prosesa la expresión en tokens y posteriormente la parsea.
      */
     public void builExpression() {
-        tokens = Tokenizer.tokenize(expression);
-        posfixExpression = Parser.infixToPostfix(tokens);
+        tokens = new Tokenizer().tokenize(expression);
+        posfixExpression = new Parser().infixToPostfix(tokens, variables);
     }
 
     /**
@@ -130,6 +130,6 @@ public class Builder extends ExpressionHandler {
      * @return retorna el valor de la expresión.
      */
     public BigDecimal evaluate(){
-        return Evaluator.evaluateExpression(posfixExpression);
+        return new Evaluator().evaluateExpression(posfixExpression, getMathContext());
     }
 }

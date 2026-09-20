@@ -17,6 +17,7 @@
 
 package parser;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -30,12 +31,15 @@ import java.util.*;
  */
 public class Parser extends ExpressionHandler{
 
+    public Parser(){}
+
     /**
      * Esta implementación del algoritmo Shunting Yard obvia cualquier signo o función que no esté en el registro.
      * @param tokens Lista de tokes formateados proporcionada por el {@link tokenizer.Tokenizer}
+     * @param variables Mapa de variables de la expresion.
      * @return Lista de tokens en notación posfija.
      */
-    public static List<String> infixToPostfix(List<String> tokens) {
+    public List<String> infixToPostfix(List<String> tokens, HashMap<String, BigDecimal> variables) {
         List<String> posfixExpression = new ArrayList<>();
         Stack<String> operators = new Stack<>();
 
@@ -79,7 +83,6 @@ public class Parser extends ExpressionHandler{
                 }
                 operators.pop();// Se borra el paréntesis de apertura luego de comparar.
             }
-
         }// fin foreach.
 
         /*

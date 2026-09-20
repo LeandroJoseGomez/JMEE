@@ -33,6 +33,12 @@ import java.util.List;
  */
 public class Tokenizer extends ExpressionHandler {
 
+    private static String expr;
+    private static List<String> tokens;
+
+
+    public Tokenizer(){}
+
     /**
      * Convierte una cadena de texto en una lista de tokens individuales.
      * Analiza caracteres de forma secuencial para distinguir entre operadores,
@@ -42,40 +48,37 @@ public class Tokenizer extends ExpressionHandler {
      * @return Una List de Strings con todos los tokes.
      * @since 0.9.0
      */
-    public static List<String> tokenize(String input) {
+    public List<String> tokenize(String input) {
         if (input == null || input.isEmpty()) return new ArrayList<>();
 
         // El formateo debe devolver la cadena limpia.
-        String expr = input.replaceAll("\\s+", "").toLowerCase();
-        List<String> tokens = new ArrayList<>();
-        int n = expr.length();
+        expr = input.replaceAll("\\s+", "").toLowerCase();
+        tokens = new ArrayList<>();
+        final int exprLength = expr.length();
 
-        for (int i = 0; i < n; i++) {
-            char c = expr.charAt(i);
+        for (int i = 0; i < exprLength; i++) {
+            char currentChar = expr.charAt(i);
 
-            if (Character.isWhitespace(c)) continue;
-
-            // Buffer de Números (incluye decimales)
-            if (Character.isDigit(c) || c == '.') {
+            // Buffer de Números.
+            if (Character.isDigit(currentChar) || currentChar == '.') {
                 StringBuilder sb = new StringBuilder();
-                while (i < n && (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
+                while (i < exprLength && (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
                     sb.append(expr.charAt(i++));
                 }
                 tokens.add(sb.toString());
                 i--; // Ajuste de índice
             }
             // Manejo de Identificadores (Funciones o Variables)
-            else if (Character.isLetter(c)) {
+            else if (Character.isLetter(currentChar)) {
                 StringBuilder sb = new StringBuilder();
-                while (i < n && (Character.isLetter(expr.charAt(i)) || Character.isDigit(expr.charAt(i)))) {
+                while (i < exprLength && (Character.isLetter(expr.charAt(i)) || Character.isDigit(expr.charAt(i)))) {
                     sb.append(expr.charAt(i++));
                 }
                 tokens.add(sb.toString());
                 i--;
             }
             // Manejo del signo menos (Operador y Unario)
-            else if (c == '-') {
-                // Es unario si: es el inicio, o sigue a un operador/paréntesis abierto
+            else if (currentChar == '-') {
                 boolean isUnary = (i == 0);
                 if (!isUnary && i > 0) {
                     String prev = tokens.get(tokens.size() - 1);
@@ -83,10 +86,10 @@ public class Tokenizer extends ExpressionHandler {
                     isUnary = "+-*/(^".contains(prev);
                 }
 
-                if (isUnary && i + 1 < n && (Character.isDigit(expr.charAt(i + 1)) || expr.charAt(i + 1) == '.')) {
+                if (isUnary && i + 1 < exprLength && (Character.isDigit(expr.charAt(i + 1)) || expr.charAt(i + 1) == '.')) {
                     StringBuilder sb = new StringBuilder("-");
                     i++;
-                    while (i < n && (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
+                    while (i < exprLength && (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
                         sb.append(expr.charAt(i++));
                     }
                     tokens.add(sb.toString());
@@ -95,9 +98,9 @@ public class Tokenizer extends ExpressionHandler {
                     tokens.add("-");
                 }
             }
-            //Otros operadores y paréntesis
+            //Otros tipos de tokens.
             else {
-                tokens.add(String.valueOf(c));
+                tokens.add(String.valueOf(currentChar));
             }
         }
         return tokens;

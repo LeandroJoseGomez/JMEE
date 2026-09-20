@@ -25,6 +25,7 @@ import operators.OperatorRegistry;
 import parser.ExpressionHandler;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.Stack;
 
@@ -38,13 +39,12 @@ import java.util.Stack;
  */
 public class Evaluator extends ExpressionHandler{
 
-
     /**
      * Metodo encargado de evaluar la expresión.
      * @param posfixExpression Lista de String que contiene los tokens de la expresión en notación posfija.
      * @return Variable con el resultado de la expresión evaluada en notación posfija.
      */
-    public static BigDecimal evaluateExpression(List<String> posfixExpression) {
+    public BigDecimal evaluateExpression(List<String> posfixExpression, MathContext mathContext) {
         if (posfixExpression == null) {
             throw new IllegalStateException("Se debe llamar al metodo parseExpression() antes de evaluar.");
         }
@@ -66,7 +66,7 @@ public class Evaluator extends ExpressionHandler{
                 }
 
                 // Se ejecuta la clase correspondiente (Addition, Subtraction, etc.)
-                stack.push(op.execute(getMathContext(), args));
+                stack.push(op.execute(mathContext, args));
 
             } else if (FunctionRegistry.isFunction(token)) {
 
@@ -80,7 +80,7 @@ public class Evaluator extends ExpressionHandler{
                 }
 
                 // Se ejecuta la clase correspondiente (Sin, Mean, Sqrt, etc.)
-                stack.push(func.execute(getMathContext(), args));
+                stack.push(func.execute(mathContext, args));
 
             }
         }
