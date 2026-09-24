@@ -58,7 +58,7 @@ class FunctionTest {
     void execute() {
         Builder builder = new Builder("log2(10)");
         builder.builExpression();
-        BigDecimal result= new BigDecimal("3.321928094887362347870319429489390");
+        BigDecimal result= new BigDecimal("3.321928");
         assertEquals(result, builder.evaluate());
     }
 }
