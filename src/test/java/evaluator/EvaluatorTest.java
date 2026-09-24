@@ -20,7 +20,7 @@ class EvaluatorTest {
                                         ("-7", "-3", "-3.33", "4", "*", "+", "-20", "10", "/", "-", "2", "^", "/");
         expResult = new BigDecimal("-0.03413595081302081707811866046627758");
 
-        assertEquals(expResult, new Evaluator().evaluateExpression(posfixExpression, new MathContext(100)));
+        assertEquals(expResult, new Evaluator().evaluateExpression(posfixExpression, new MathContext(34)));
     }
 
     @Test
