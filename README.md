@@ -12,18 +12,11 @@ para un computador.
   
 ### Mi objetivo
 
-Inicialmente la idea de este programa surgió cuando intentaba fortalecer mis habilidades como programador en Java y
-decidí crear una calculadora la cual evaluara operaciones matemáticas básicas con tan solo proporcionarle la expresión
-tal cual la entendemos nosotros los humanos, así como lo hacen las calculadoras científicas. Todo esto por sí sola, eso
-quiere decir que no debía de auxiliarme de librerías que agilizaran el trabajo; esto supondría un gran reto para mí, pues
-debía de aprender cómo transformar la expresión en un formato más fácil de procesar y evaluar para luego empezar a
-codificar.
-
 Mi objetivo con este proyecto es aprender nuevos conceptos relacionados con la optimización y reutilización de código
 Java, así como también la aplicación de algoritmos avanzados para el análisis de expresiones matemáticas y métodos
 numéricos.
 
-Agradeceria de antemano cualquier sugerencia u observacion sobre el programa, me ayudaria bastante a seguir mejorandolo.
+Agradecería de antemano cualquier sugerencia u observación sobre el programa, me ayudaría bastante a seguir mejorándolo.
 
 ### Funcionamiento
 
@@ -35,16 +28,33 @@ función correspondiente.
 Se recomienda ver el archivo
 <a href="https://github.com/LeandroJoseGomez/JMEE/blob/main/USAGE.md">USAGE.md</a> para mayor comprensión y ejemplos de uso.
 
+### Dependencia Maven
+Se recomienda usar JDK 17 o superior.
+
+```xml
+<dependency>
+  <groupId>io.github.leandrojosegomez</groupId>
+  <artifactId>JMEE</artifactId>
+  <version>1.3.0</version>
+</dependency>
+```
+
 ### Versiones y sus objetivos
 
-- **v1.0.0:** Poder evaluar expresiones matemáticas básicas como, por ejemplo, "3+3*sin(90)", contar con la función de
-  soportar variables/parámetros y que el usuario tenga la opción de crear sus propias funciones personalizadas. Todo
-  esto teniendo como entrada un String con la expresión matemática a evaluar.
+- **v1.3.0:** Corrección de clases, parámetros y métodos estáticos que impedían que las expresiones fueran independientes unas de la otras. Además de publicarse la librería en Maven Central.
+
+- **v1.2.9:** Se reconfiguró la librería para usar el tipo de dato BigDecimal, esto para llevar un mayor control y validez de los cálculos que requieren de extrema precisión.
 
 - **v1.2.0:** Con esta nueva actualización lo que se busca es que la librería esté asentada sobre una arquitectura modular
   y fácil de entender implementando el Principio de Responsabilidad Única de SOLID. También se ha pensado en su extensión, cómo
   los desarrolladores pueden modificarla o crear sus propias funciones personalizadas.
 
-- **v1.2.9:** Se reconfiguró la librería para usar el tipo de dato BigDecimal, esto para llevar un mayor control y validez de los cálculos que requieren de extrema precisión.
+- **v1.0.0:** Poder evaluar expresiones matemáticas básicas como, por ejemplo, "3+3*sin(90)", contar con la función de
+  soportar variables/parámetros y que el usuario tenga la opción de crear sus propias funciones personalizadas. Todo
+  esto teniendo como entrada un String con la expresión matemática a evaluar.
+
+
+
+
 
 </div>
